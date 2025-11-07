@@ -1,0 +1,21 @@
+# ==============================================
+# WGU DQX Workflow Requirements
+# ==============================================
+# Compatible with Databricks Runtime 14.x+ (Python 3.10+)
+
+# Core dependencies
+pandas
+pyyaml
+faker
+pytz
+delta-spark
+databricks-sdk
+
+# Databricks Labs DQX
+databricks-labs-dqx
+
+# Spark & Delta Lake integration
+pyspark
+
+# Optional utilities (for local debugging)
+numpy

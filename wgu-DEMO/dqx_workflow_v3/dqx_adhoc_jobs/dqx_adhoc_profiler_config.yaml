@@ -1,0 +1,39 @@
+# ======================================================================
+# DQX Ad-Hoc Profiler Configuration
+# ======================================================================
+# Supports profiling any dataset: table, file, or multiple sources.
+# Aligned with Databricks Labs DQX profiling and rule generation APIs.
+# url(https://databrickslabs.github.io/dqx/docs/guide/data_profiling/)
+# ======================================================================
+
+input_sources:
+  # Single-table example
+  - name: students_bronze
+    type: table
+    table_name: wgu_poc.wgu_bronze.students_data_workflow_v3
+    format: delta
+    options:
+      catalog: hive_metastore
+      read_mode: full
+      incremental_column: load_timestamp
+
+  # Alternate file-based input
+  # - name: students_external
+  #   type: file
+  #   path: s3://wgu-demo-bucket/bronze/students_data/
+  #   format: parquet
+  #   options:
+  #     recursiveFileLookup: true
+  #     header: true
+  #     inferSchema: true
+
+profiling:
+  sample_fraction: 0.7
+  limit: 10000
+  seed: 42
+  max_columns: 1000
+  include_histograms: true
+
+rule_output:
+  directory: /Workspace/Shared/wgu-dqx/wgu-DEMO/dqx_workflow_v3/dqx_adhoc_jobs/adhoc_profiler_results/
+  rule_table: wgu_poc.dqx_output.adhoc_profiler_auto_rules

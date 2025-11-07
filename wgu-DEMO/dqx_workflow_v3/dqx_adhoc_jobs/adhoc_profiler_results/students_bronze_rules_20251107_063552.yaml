@@ -1,0 +1,39 @@
+- check:
+    function: is_not_null_and_not_empty
+    arguments:
+      column: student_id
+      trim_strings: true
+  name: student_id_is_null_or_empty
+  criticality: error
+- check:
+    function: is_not_null_and_not_empty
+    arguments:
+      column: name
+      trim_strings: true
+  name: name_is_null_or_empty
+  criticality: error
+- check:
+    function: is_not_null_and_not_empty
+    arguments:
+      column: email
+      trim_strings: true
+  name: email_is_null_or_empty
+  criticality: error
+- check:
+    function: is_in_list
+    arguments:
+      column: student_status
+      allowed:
+      - graduated
+      - break
+      - current
+      - dropped
+  name: student_status_other_value
+  criticality: error
+- check:
+    function: is_not_null_and_not_empty
+    arguments:
+      column: student_status
+      trim_strings: true
+  name: student_status_is_null_or_empty
+  criticality: error

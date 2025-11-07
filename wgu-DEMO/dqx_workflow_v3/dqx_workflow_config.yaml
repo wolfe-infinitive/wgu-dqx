@@ -1,0 +1,30 @@
+# ======================================================================
+# DQX Workflow Configuration
+# ======================================================================
+# Defines all environment-specific parameters for the WGU DQX pipeline.
+# This file is loaded at runtime by the Databricks notebook and is
+# strictly validated — all sections and keys are required.
+# ======================================================================
+
+table_names:
+  bronze: wgu_poc.wgu_bronze.students_data_workflow_v3
+  bronze_location: wgu_poc.wgu_bronze.students_location_workflow_v3
+  dqx_valid: wgu_poc.wgu_silver.students_valid_workflow_v3
+  dqx_quarantine: wgu_poc.dqx_output.students_quarantined_workflow_v3
+  silver_enriched: wgu_poc.wgu_silver.student_data_enriched_workflow_v3
+  gold_current: wgu_poc.wgu_gold.student_data_current_workflow_v3
+
+# ======================================================================
+# Profiling parameters for DQProfiler
+# Adjust as needed for large datasets or sampling strategies.
+# ======================================================================
+profiling:
+  sample_fraction: 0.7   # Fraction of records to profile
+  limit: 10000           # Max rows to profile per run
+  seed: 42               # Random seed for reproducibility
+
+# ======================================================================
+# Year range validation for timestamp sanity checks
+# Ensures load_timestamp and month_end_date fall within bounds
+# ======================================================================
+timestamp_year_bounds: [1900, 9999]

@@ -1,0 +1,37 @@
+resources:
+  jobs:
+    wgu_dqx_workflow_v3:
+      name: wgu-dqx-workflow-v3
+      tasks:
+        - task_key: Data_Creation
+          notebook_task:
+            notebook_path: /Workspace/Shared/wgu-dqx/wgu-DEMO/dqx_workflow_v3/wgu_data_creation_workflow_1_v3
+            source: WORKSPACE
+          environment_key: dqx_workflow_requirements
+        - task_key: Profiler_DQChecker
+          depends_on:
+            - task_key: Data_Creation
+          notebook_task:
+            notebook_path: /Workspace/Shared/wgu-dqx/wgu-DEMO/dqx_workflow_v3/wgu_profiler_dqchecker_workflow_2_v3
+            source: WORKSPACE
+          environment_key: dqx_workflow_requirements
+        - task_key: Data_Enrichment
+          depends_on:
+            - task_key: Profiler_DQChecker
+          notebook_task:
+            notebook_path: /Workspace/Shared/wgu-dqx/wgu-DEMO/dqx_workflow_v3/wgu_data_enrichment_workflow_3_v3
+            source: WORKSPACE
+          environment_key: dqx_workflow_requirements
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "4"
+        - environment_key: dqx_workflow_requirements
+          spec:
+            dependencies:
+              - -r
+                /Workspace/Shared/wgu-dqx/wgu-DEMO/dqx_workflow_v3/requirements.txt
+            environment_version: "4"
+      performance_target: PERFORMANCE_OPTIMIZED
